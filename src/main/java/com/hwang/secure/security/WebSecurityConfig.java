@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/homepage.html", true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/login.html?error=true")
                 .and()
                 .logout()
