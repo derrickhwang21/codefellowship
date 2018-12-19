@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Signup</h1>
+<form action="/perform_signup"  method="POST">
+    <div>
+        <label>Input First Name</label>
+        <input type ="text" name = "firstName" placeholder="First Name"/>
+    </div>
+    <div>
+        <label>Input Last Name</label>
+        <input type ="text" name = "lastName" placeholder="Last Name"/>
+    </div>
+    <div>
+        <label>Input Date of Birth</label>
+        <input type ="Date" name = "dateOfBirth" placeholder="Date of Birth"/>
+    </div>
+    <div>
+        <label>Input Bio</label>
+        <input type ="text" name = "bio" placeholder="Bio"/>
+    </div>
+    <div>
+        <label>Enter a Username</label>
+        <input type ="text" name = "userName" placeholder="Username"/>
+    </div>
+    <div>
+        <label>Enter a Password</label>
+        <input type ="text" name = "password" placeholder="password"/>
+    </div>
+    <button type="submit">submit</button>
+</form>
+
+
+</body>
+</html>
