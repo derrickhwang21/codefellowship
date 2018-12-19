@@ -1,4 +1,7 @@
-<html>
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <body>
 <h1>Signup</h1>
 <form action="/perform_signup"  method="POST">
@@ -7,24 +10,28 @@
         <input type ="text" name = "firstName" placeholder="First Name"/>
     </div>
     <div>
-        <label>Input First Name</label>
-        <input type ="text" name = "firstName" placeholder="First Name"/>
+        <label>Input Last Name</label>
+        <input type ="text" name = "lastName" placeholder="Last Name"/>
     </div>
     <div>
-        <label>Input First Name</label>
-        <input type ="text" name = "firstName" placeholder="First Name"/>
+        <label>Input Date of Birth</label>
+        <input type ="Date" name = "dateOfBirth" placeholder="Date of Birth"/>
     </div>
     <div>
-        <label>Input First Name</label>
-        <input type ="text" name = "firstName" placeholder="First Name"/>
+        <label>Input Bio</label>
+        <input type ="text" name = "bio" placeholder="Bio"/>
     </div>
     <div>
-        <label>Input First Name</label>
-        <input type ="text" name = "firstName" placeholder="First Name"/>
+        <label>Enter a Username</label>
+        <input type ="text" name = "userName" placeholder="Username"/>
     </div>
-    <button type="submit" th:text="#{label.form.submit}">submit</button>
+    <div>
+        <label>Enter a Password</label>
+        <input type ="text" name = "password" placeholder="password"/>
+    </div>
+    <button type="submit">submit</button>
 </form>
 
-<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>
+
 </body>
 </html>
