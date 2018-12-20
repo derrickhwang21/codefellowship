@@ -14,14 +14,14 @@ public class ApplicationUser {
     public long id;
     public String firstName;
     public String lastName;
-    public Date dateOfBirth;
+    public String dateOfBirth;
     public String bio;
     public String userName;
     public String password;
 
     public ApplicationUser(){};
 
-    public ApplicationUser(String firstName, String lastName, Date dateOfBirth, String bio, String userName, String password){
+    public ApplicationUser(String firstName, String lastName, String dateOfBirth, String bio, String userName, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;

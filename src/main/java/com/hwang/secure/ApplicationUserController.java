@@ -23,19 +23,23 @@ public class ApplicationUserController {
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String showHome() {
+
         return "index";
     }
-
     @RequestMapping(value= "/registration", method= RequestMethod.GET)
     public String showRegistration() {
         return "registration";
     }
 
+    @RequestMapping(value= "/login", method= RequestMethod.GET)
+    public String showLogin(){return "login";}
 
-    @RequestMapping(value= "/perform_login", method= RequestMethod.POST)
+
+
+    @RequestMapping(value= "/perform_signup", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
-                               @RequestParam Date dateOfBirth,
+                               @RequestParam String dateOfBirth,
                                @RequestParam String bio,
                                @RequestParam String userName,
                                @RequestParam String passWord){
@@ -43,6 +47,7 @@ public class ApplicationUserController {
         applicationUserRepo.save(user);
         return new RedirectView("/users/" + user.id);
     }
+
 
     @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
     public String showUsers(@PathVariable long userId, Model m){
