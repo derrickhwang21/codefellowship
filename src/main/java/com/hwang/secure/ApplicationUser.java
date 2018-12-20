@@ -19,7 +19,7 @@ public class ApplicationUser {
     public String userName;
     public String password;
 
-    ApplicationUser(){};
+    public ApplicationUser(){};
 
     public ApplicationUser(String firstName, String lastName, Date dateOfBirth, String bio, String userName, String password){
         this.firstName = firstName;

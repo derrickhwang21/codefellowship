@@ -17,7 +17,7 @@ import java.util.Date;
 public class ApplicationUserController {
 
     @Autowired
-    private ApplicationUserRepository applicationUserRepo;
+    ApplicationUserRepository applicationUserRepo;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -26,21 +26,19 @@ public class ApplicationUserController {
         return "index";
     }
 
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(value= "/registration", method= RequestMethod.GET)
     public String showRegistration() {
         return "registration";
     }
 
 
-    @RequestMapping(value = "/perform_signup", method = RequestMethod.POST)
+    @RequestMapping(value= "/perform_login", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
                                @RequestParam Date dateOfBirth,
                                @RequestParam String bio,
                                @RequestParam String userName,
-                               @RequestParam String passWord,
-                               Model m){
+                               @RequestParam String passWord){
         ApplicationUser user = new ApplicationUser(firstName, lastName, dateOfBirth, bio, userName, bCryptPasswordEncoder.encode(passWord));
         applicationUserRepo.save(user);
         return new RedirectView("/users/" + user.id);
