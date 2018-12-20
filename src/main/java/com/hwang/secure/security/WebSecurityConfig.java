@@ -13,7 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+    // We'll comment in these lines tomorrow, when we add a UserDetailsServiceImpl!
+    // @Autowired
+    // private UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,5 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/*").permitAll();
+
     }
 }
