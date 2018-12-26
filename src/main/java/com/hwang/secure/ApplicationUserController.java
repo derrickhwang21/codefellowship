@@ -72,7 +72,16 @@ public class ApplicationUserController {
         return "login";}
 
 
-
+    /**
+     * Adds a new user to the repository
+     * @param firstName
+     * @param lastName
+     * @param dateOfBirth
+     * @param bio
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value= "/registration", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
@@ -88,6 +97,13 @@ public class ApplicationUserController {
         return new RedirectView("/myprofile");
     }
 
+
+    /**
+     * Route to currently logged in user's profile page
+     * @param p
+     * @param m
+     * @return
+     */
     @RequestMapping(value="/myprofile", method= RequestMethod.GET)
     public String showCurrentUserProfile(Principal p, Model m) {
        getUsername(p, m);
@@ -105,6 +121,12 @@ public class ApplicationUserController {
 //        return "users";
 //    }
 
+
+    /**
+     * Checks if current  user is logged in
+     * @param p
+     * @param m
+     */
     public void getUsername(Principal p, Model m) {
         if (p != null) {
             ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
