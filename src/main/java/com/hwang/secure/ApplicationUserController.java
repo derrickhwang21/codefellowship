@@ -61,7 +61,16 @@ public class ApplicationUserController {
     public String login(){return "login";}
 
 
-
+    /**
+     * Adds a new user to the repository
+     * @param firstName
+     * @param lastName
+     * @param dateOfBirth
+     * @param bio
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value= "/registration", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
@@ -77,10 +86,25 @@ public class ApplicationUserController {
         return new RedirectView("/users");
     }
 
-    @RequestMapping(value="/users", method= RequestMethod.GET)
-    public String showUserProfile(Principal p, Model m) {
-        m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
-        return "users";
+
+
+    /**
+     * Route to currently logged in user's profile page
+     * @param p
+     * @param m
+     * @return
+     */
+    @RequestMapping(value="/myprofile", method= RequestMethod.GET)
+    public String showCurrentUserProfile(Principal p, Model m) {
+       getUsername(p, m);
+        ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+
+
+        List<Post> posts = applicationUserRepo.findById(currentUser.id).get().posts;
+        if(posts.size() > 0) {m.addAttribute("posts", posts);}
+        m.addAttribute("user", currentUser);
+        return "profile";
+
     }
 //    @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
 //    public String showUsers(@PathVariable long userId, Model m){
@@ -88,6 +112,21 @@ public class ApplicationUserController {
 //        return "users";
 //    }
 
+
+
+    /**
+     * Checks if current  user is logged in
+     * @param p
+     * @param m
+     */
+    public void getUsername(Principal p, Model m) {
+        if (p != null) {
+            ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+            m.addAttribute("loggedInUser", applicationUserRepo.findById(currentUser.id).get());
+        } else {
+            m.addAttribute("loggedInUser", false);
+        }
+    }
 
 
 }
