@@ -6,18 +6,15 @@
     <div th:replace="~{common :: head}"></div>
 
 </head>
-
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+</head>
 <body>
-<header>
-    <div th:replace="~{common :: navigation(${user})}"></div>
-</header>
-
-<div class="container">
     <h1 th:text="${user.username}"></h1>
     <div><img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Conan_O%27Brien_at_U.S._Embassy_Helsinki.jpg" alt="profile picture"/></div>
 
-</div>
-
+    <a href="/perform_logout">logout</a>
 
 </body>
 </html>
