@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class ApplicationUserController {
@@ -36,10 +35,7 @@ public class ApplicationUserController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String showHome(Principal p, Model m) {
         if(p != null){
-            ApplicationUser loggedInUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-            m.addAttribute("user", applicationUserRepo.findById(loggedInUser.id).get());
-        } else{
-            m.addAttribute("user", false);
+            m.addAttribute("user", p);
         }
         return "index";
     }
@@ -62,14 +58,7 @@ public class ApplicationUserController {
      * @return
      */
     @RequestMapping(value= "/login", method= RequestMethod.GET)
-    public String login(Principal p, Model m){
-        if(p != null){
-            ApplicationUser loggedInUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-            m.addAttribute("user", applicationUserRepo.findById(loggedInUser.id).get());
-        } else{
-            m.addAttribute("user", false);
-        }
-        return "login";}
+    public String login(){return "login";}
 
 
 
@@ -85,19 +74,13 @@ public class ApplicationUserController {
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new RedirectView("/myprofile");
+        return new RedirectView("/users");
     }
 
-    @RequestMapping(value="/myprofile", method= RequestMethod.GET)
-    public String showCurrentUserProfile(Principal p, Model m) {
-       getUsername(p, m);
-        ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-
-
-        List<Post> posts = applicationUserRepo.findById(currentUser.id).get().posts;
-        if(posts.size() > 0) {m.addAttribute("posts", posts);}
-        m.addAttribute("user", currentUser);
-        return "profile";
+    @RequestMapping(value="/users", method= RequestMethod.GET)
+    public String showUserProfile(Principal p, Model m) {
+        m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        return "users";
     }
 //    @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
 //    public String showUsers(@PathVariable long userId, Model m){
@@ -105,13 +88,6 @@ public class ApplicationUserController {
 //        return "users";
 //    }
 
-    public void getUsername(Principal p, Model m) {
-        if (p != null) {
-            ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-            m.addAttribute("loggedInUser", applicationUserRepo.findById(currentUser.id).get());
-        } else {
-            m.addAttribute("loggedInUser", false);
-        }
-    }
+
 
 }
