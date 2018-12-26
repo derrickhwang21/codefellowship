@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <div th:replace="~{common :: head}"></div>
 
+</head>
 <body>
 <h1>Signup</h1>
-<form action="/perform_signup"  method="POST">
+<form action="/registration"  method="POST">
     <div>
         <label>Input First Name</label>
         <input type ="text" name = "firstName" placeholder="First Name"/>
@@ -23,11 +27,11 @@
     </div>
     <div>
         <label>Enter a Username</label>
-        <input type ="text" name = "userName" placeholder="Username"/>
+        <input type ="text" name = "username" placeholder="Username"/>
     </div>
     <div>
         <label>Enter a Password</label>
-        <input type ="password" name = "passWord" placeholder="password"/>
+        <input type ="password" name = "password" placeholder="password"/>
     </div>
     <button type="submit">submit</button>
 </form>

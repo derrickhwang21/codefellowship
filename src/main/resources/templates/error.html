@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Auth and Auth</title>
+    <div th:replace="~{common :: head}"></div>
+</head>
+<body>
+<h1>Something's Wrong</h1>
+
+<div>
+    <ul>
+        <li>Date: <span th:text="${timestamp}"/> </li>
+        <li>Path: <span th:text="${path}"/> </li>
+        <li>Error: <span th:text="${error}"/> </li>
+        <li>Status: <span th:text="${status}"/> </li>
+        <li>Message: <span th:text="${message}"/> </li>
+    </ul>
+</div>
+
+</body>
+</html>
