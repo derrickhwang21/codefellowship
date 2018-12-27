@@ -25,3 +25,4 @@ public class Post {
         this.createdAt = createdAt;
     }
 }
+
