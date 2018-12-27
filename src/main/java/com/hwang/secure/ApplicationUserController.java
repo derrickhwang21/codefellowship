@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ApplicationUserController {
@@ -94,31 +95,59 @@ public class ApplicationUserController {
         ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
 
 
-        List<Post> posts = applicationUserRepo.findById(currentUser.id).get().posts;
-        if(posts.size() > 0) {m.addAttribute("posts", posts);}
-        m.addAttribute("user", currentUser);
+        m.addAttribute("user", applicationUserRepo.findById(currentUser.id).get());
+        m.addAttribute("myProfile", true);
+        m.addAttribute("userId", currentUser.id);
         return "profile";
     }
 
     @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
     public String showUsers(@PathVariable long userId, Model m, Principal p){
-        getUsername(p, m);
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
 
-        List<Post> posts = applicationUserRepo.findById(userId).get().posts;
-        if (posts.size() > 0) {m.addAttribute("posts", posts);}
         m.addAttribute("user", applicationUserRepo.findById(userId).get());
+        m.addAttribute("myProfile", false);
+        m.addAttribute("userId", user.id);
         return "profile";
     }
 
     @RequestMapping(value="/users", method=RequestMethod.GET)
     public String getUsers(Principal p, Model m){
 
-        getUsername(p, m);
 
-        m.addAttribute("users", applicationUserRepo.findAll());
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
+
+        m.addAttribute("allUsers", applicationUserRepo.findAll());
+        m.addAttribute("user", applicationUserRepo.findById(user.id).get());
 
         return "users";
     }
+
+    @RequestMapping(value="/users/{userId}/follow")
+    public RedirectView followUser(@PathVariable long userId, Principal p, Model m) {
+
+        ApplicationUser user = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+
+        Optional<ApplicationUser> loggedInUser = applicationUserRepo.findById(userId);
+        Optional<ApplicationUser> following = applicationUserRepo.findById(userId);
+
+        ApplicationUser followedUser = following.get();
+        followedUser.following.add(loggedInUser.get());
+        applicationUserRepo.save(followedUser);
+
+        m.addAttribute("user", applicationUserRepo.findById(user.id).get());
+
+        return new RedirectView("/users/" + userId);
+    }
+
+    @RequestMapping(value="/feed", method= RequestMethod.GET)
+    public String showUsersFeed(Principal p, Model m) {
+
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
+        m.addAttribute("user", applicationUserRepo.findById(user.id).get());
+        return "feed";
+    }
+
 
     public void getUsername(Principal p, Model m) {
         if (p != null) {

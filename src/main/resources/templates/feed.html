@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Feed</title>
+    <div th:replace="~{common :: head}"></div>
+
+</head>
+
+<body>
+<header>
+    <div th:replace="~{common :: navigation(${user})}"></div>
+</header>
+<main>
+    <div class="container ">
+        <h1 class="jumbotron-heading mx-auto">Your Feeds</h1>
+
+        <div th:each="user : ${user.following}" >
+            <div th:each="post : ${user.posts}">
+                <h4 th:text="${user.username}"></h4>
+                <p th:text="${post.body}"></p>
+                <p th:text="${post.createdAt}"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

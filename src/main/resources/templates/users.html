@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Profile</title>
+    <title>View All Profiles</title>
     <div th:replace="~{common :: head}"></div>
 
 </head>
@@ -15,7 +15,7 @@
         <div class="container ">
             <h1 class="jumbotron-heading mx-auto">Code Fellows</h1>
 
-            <div th:each="user : ${users}" >
+            <div th:each="user : ${allUsers}" >
                 <div>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Conan_O%27Brien_at_U.S._Embassy_Helsinki.jpg" alt="profile picture"/>
 
