@@ -73,7 +73,16 @@ public class ApplicationUserController {
         return "login";}
 
 
-
+    /**
+     * signup route
+     * @param firstName
+     * @param lastName
+     * @param dateOfBirth
+     * @param bio
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value= "/registration", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
@@ -89,6 +98,12 @@ public class ApplicationUserController {
         return new RedirectView("/myprofile");
     }
 
+    /**
+     * show user's own profile
+     * @param p
+     * @param m
+     * @return
+     */
     @RequestMapping(value="/myprofile", method= RequestMethod.GET)
     public String showCurrentUserProfile(Principal p, Model m) {
        getUsername(p, m);
@@ -101,6 +116,13 @@ public class ApplicationUserController {
         return "profile";
     }
 
+    /**
+     * show non-logged in user profile
+     * @param userId
+     * @param m
+     * @param p
+     * @return
+     */
     @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
     public String showUsers(@PathVariable long userId, Model m, Principal p){
         ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
@@ -111,6 +133,12 @@ public class ApplicationUserController {
         return "profile";
     }
 
+    /**
+     * show all users
+     * @param p
+     * @param m
+     * @return
+     */
     @RequestMapping(value="/users", method=RequestMethod.GET)
     public String getUsers(Principal p, Model m){
 
@@ -123,6 +151,13 @@ public class ApplicationUserController {
         return "users";
     }
 
+    /**
+     * still working on follow
+     * @param userId
+     * @param p
+     * @param m
+     * @return
+     */
     @RequestMapping(value="/users/{userId}/follow")
     public RedirectView followUser(@PathVariable long userId, Principal p, Model m) {
 
@@ -140,6 +175,13 @@ public class ApplicationUserController {
         return new RedirectView("/users/" + userId);
     }
 
+
+    /**
+     * still working on feed
+     * @param p
+     * @param m
+     * @return
+     */
     @RequestMapping(value="/feed", method= RequestMethod.GET)
     public String showUsersFeed(Principal p, Model m) {
 
