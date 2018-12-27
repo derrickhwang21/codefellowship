@@ -3,10 +3,12 @@ package com.hwang.secure;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -20,10 +22,6 @@ public class ApplicationUser implements UserDetails {
     public String bio;
     public String username;
     public String password;
-
-    @OneToMany(mappedBy = "applicationUser")
-    public List<Post> posts;
-
 
     public ApplicationUser(){};
 
