@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -18,11 +19,23 @@ public class ApplicationUser implements UserDetails {
     public String lastName;
     public String dateOfBirth;
     public String bio;
+    @Column(unique = true)
     public String username;
     public String password;
 
     @OneToMany(mappedBy = "applicationUser")
     public List<Post> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "follower_followed",
+            joinColumns = {@JoinColumn(name = "follower_id")},
+            inverseJoinColumns = {@JoinColumn(name = "followed_id")}
+    )
+    public Set<ApplicationUser> following;
+
+    @ManyToMany(mappedBy = "following")
+    public Set<ApplicationUser> followers;
 
     public ApplicationUser(){};
 

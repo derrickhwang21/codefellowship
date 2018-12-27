@@ -2,19 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Profile</title>
+    <title>View All Profiles</title>
     <div th:replace="~{common :: head}"></div>
 
 </head>
-<head>
-    <meta charset="UTF-8">
-    <title>users</title>
-</head>
-<body>
-    <h1 th:text="${user.username}"></h1>
-    <div><img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Conan_O%27Brien_at_U.S._Embassy_Helsinki.jpg" alt="profile picture"/></div>
 
-    <a href="/perform_logout">logout</a>
+<body>
+<header>
+    <div th:replace="~{common :: navigation(${user})}"></div>
+</header>
+<main>
+        <div class="container ">
+            <h1 class="jumbotron-heading mx-auto">Code Fellows</h1>
+
+            <div th:each="user : ${allUsers}" >
+                <div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Conan_O%27Brien_at_U.S._Embassy_Helsinki.jpg" alt="profile picture"/>
+
+                    <a th:href="${'/users/' + user.id}"><h2 th:text="${user.username}"></h2></a>
+                </div>
+
+            </div>
+
+        </div>
+
+</main>
 
 </body>
 </html>
