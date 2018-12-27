@@ -99,11 +99,26 @@ public class ApplicationUserController {
         m.addAttribute("user", currentUser);
         return "profile";
     }
-//    @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
-//    public String showUsers(@PathVariable long userId, Model m){
-//        m.addAttribute("user", applicationUserRepo.findById(userId).get());
-//        return "users";
-//    }
+
+    @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
+    public String showUsers(@PathVariable long userId, Model m, Principal p){
+        getUsername(p, m);
+
+        List<Post> posts = applicationUserRepo.findById(userId).get().posts;
+        if (posts.size() > 0) {m.addAttribute("posts", posts);}
+        m.addAttribute("user", applicationUserRepo.findById(userId).get());
+        return "profile";
+    }
+
+    @RequestMapping(value="/users", method=RequestMethod.GET)
+    public String getUsers(Principal p, Model m){
+
+        getUsername(p, m);
+
+        m.addAttribute("users", applicationUserRepo.findAll());
+
+        return "users";
+    }
 
     public void getUsername(Principal p, Model m) {
         if (p != null) {
