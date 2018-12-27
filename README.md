@@ -45,6 +45,9 @@ A user's posts should be visible on their profile page
 When a user is logged in, the app should display the user's username on every page (in the navbar)
 
 
+
+
+
 ## Setting Up
 * clone repository
     * ensure the following dependencies are installed:
