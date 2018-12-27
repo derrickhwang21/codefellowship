@@ -23,7 +23,7 @@
                 <li class="nav-item"><a class="nav-link" href="/feed" >My Feed</a></li>
                 <li class="nav-item"><a class="nav-link" href="/perform_logout" >Logout</a></li>
             </ul>
-            <ul th:if="${user == false}">
+            <ul class="navbar-nav" th:if="${user == false}">
                 <li class="nav-item"><a class="nav-link" href="/" >Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/registration">Sign up</a></li>
                 <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
