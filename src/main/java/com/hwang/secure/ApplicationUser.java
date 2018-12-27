@@ -75,3 +75,4 @@ public class ApplicationUser implements UserDetails {
     }
 
 }
+

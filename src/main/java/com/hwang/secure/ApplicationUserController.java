@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ApplicationUserController {
@@ -35,7 +36,10 @@ public class ApplicationUserController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String showHome(Principal p, Model m) {
         if(p != null){
-            m.addAttribute("user", p);
+            ApplicationUser loggedInUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+            m.addAttribute("user", applicationUserRepo.findById(loggedInUser.id).get());
+        } else{
+            m.addAttribute("user", false);
         }
         return "index";
     }
@@ -58,19 +62,17 @@ public class ApplicationUserController {
      * @return
      */
     @RequestMapping(value= "/login", method= RequestMethod.GET)
-    public String login(){return "login";}
+    public String login(Principal p, Model m){
+        if(p != null){
+            ApplicationUser loggedInUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+            m.addAttribute("user", applicationUserRepo.findById(loggedInUser.id).get());
+        } else{
+            m.addAttribute("user", false);
+        }
+        return "login";}
 
 
-    /**
-     * Adds a new user to the repository
-     * @param firstName
-     * @param lastName
-     * @param dateOfBirth
-     * @param bio
-     * @param username
-     * @param password
-     * @return
-     */
+
     @RequestMapping(value= "/registration", method= RequestMethod.POST)
     public RedirectView signUp(@RequestParam String firstName,
                                @RequestParam String lastName,
@@ -83,17 +85,9 @@ public class ApplicationUserController {
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new RedirectView("/users");
+        return new RedirectView("/myprofile");
     }
 
-
-
-    /**
-     * Route to currently logged in user's profile page
-     * @param p
-     * @param m
-     * @return
-     */
     @RequestMapping(value="/myprofile", method= RequestMethod.GET)
     public String showCurrentUserProfile(Principal p, Model m) {
        getUsername(p, m);
@@ -104,7 +98,6 @@ public class ApplicationUserController {
         if(posts.size() > 0) {m.addAttribute("posts", posts);}
         m.addAttribute("user", currentUser);
         return "profile";
-
     }
 //    @RequestMapping(value="/users/{userId}", method = RequestMethod.GET)
 //    public String showUsers(@PathVariable long userId, Model m){
@@ -112,13 +105,6 @@ public class ApplicationUserController {
 //        return "users";
 //    }
 
-
-
-    /**
-     * Checks if current  user is logged in
-     * @param p
-     * @param m
-     */
     public void getUsername(Principal p, Model m) {
         if (p != null) {
             ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
@@ -128,5 +114,5 @@ public class ApplicationUserController {
         }
     }
 
-
 }
+
