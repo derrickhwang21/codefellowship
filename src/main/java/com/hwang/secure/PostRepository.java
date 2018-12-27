@@ -7,3 +7,4 @@ public interface PostRepository extends CrudRepository<Post, Long>{
 
     }
 
+

@@ -27,7 +27,37 @@ The site should have a non-whitelabel error handling page that lets the user kno
 
 The site should contain integration testing
 
-
+#### lab 17
+31
+​
+32
+Allow users to log in to CodeFellowship and create posts
+33
+* Upon logging in, users should be taken to a `/myprofile` route that displays their information
+34
+​
+35
+Ensure homepage, login, and registration routes are accessible to non-logged in users. All other routes should be limited to logged-in users.
+36
+​
+37
+Ensure user registration also logs users into the app automatically
+38
+​
+39
+Add a `Post` entity
+40
+* A `Post` has a `body` and a `createdAt` timestamp
+41
+* A logged-in user should be able to create a `Post`, and a post should belong to the user that created it
+42
+​
+43
+A user's posts should be visible on their profile page
+44
+​
+45
+When a user is logged in, the app should display the user's username on every page (in the navbar)
 
 ## Setting Up
 * clone repository
