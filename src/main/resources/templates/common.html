@@ -17,15 +17,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav" th:if="${user}" >
+                <li class="nav-item"><a class="nav-link">Hello  <span th:text="${user.username}"></span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/myprofile" >My Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users" >Browse Profiles</a></li>
                 <li class="nav-item"><a class="nav-link" href="/feed" >My Feed</a></li>
                 <li class="nav-item"><a class="nav-link" href="/perform_logout" >Logout</a></li>
             </ul>
-            <ul th:if="${user == false}">
-                <li><a href="/" >Home</a></li>
-                <li><a href="/registration">Sign up</a></li>
-                <li><a href="/login">Login</a></li>
+            <ul class="navbar-nav" th:if="${user == false}">
+                <li class="nav-item"><a class="nav-link" href="/" >Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/registration">Sign up</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
             </ul>
         </div>
     </nav>
